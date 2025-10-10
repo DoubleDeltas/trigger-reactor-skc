@@ -21,7 +21,9 @@ public class SerializableLocation extends Location implements ConfigurationSeria
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> data = new HashMap<String, Object>();
-        data.put("world", this.getWorld().getName());
+        
+        World w = this.getWorld();
+        data.put("world", w != null ? w.getName() : null);
 
         data.put("x", this.getX());
         data.put("y", this.getY());
@@ -34,10 +36,8 @@ public class SerializableLocation extends Location implements ConfigurationSeria
     }
 
     public static SerializableLocation deserialize(Map<String, Object> args) {
-        World world = Bukkit.getWorld((String) args.get("world"));
-        if (world == null) {
-            throw new IllegalArgumentException("unknown world");
-        }
+        String worldName = (String) args.get("world");
+        World world = worldName != null ? Bukkit.getWorld(worldName) : null;
 
         return new SerializableLocation(new Location(world, NumberConversions.toDouble(args.get("x")),
                 NumberConversions.toDouble(args.get("y")), NumberConversions.toDouble(args.get("z")),
