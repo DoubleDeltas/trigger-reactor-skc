@@ -17,7 +17,6 @@
 package io.github.wysohn.triggerreactor.bukkit.manager.trigger.share;
 
 import io.github.wysohn.triggerreactor.bukkit.tools.BukkitUtil;
-import io.github.wysohn.triggerreactor.bukkit.tools.SerializableLocation;
 import io.github.wysohn.triggerreactor.bukkit.tools.SkullUtil;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -137,45 +136,18 @@ public class CommonFunctions extends AbstractCommonFunctions {
         return head;
     }
 
-    /**
-     * @deprecated Location itself implements ConfigurationSerializable on latest versions.
-     */
-    @Deprecated
     @Override
-    public SerializableLocation serializeLocation(World world, double x, double y, double z) {
-        return new SerializableLocation(new Location(world, x, y, z));
+    public Location serializeLocation(World world, double x, double y, double z) {
+        return new Location(world, x, y, z);
     }
 
-    /**
-     * @deprecated Location itself implements @ConfigurationSerializable on latest versions.
-     */
-    @Deprecated
     @Override
-    public SerializableLocation serializeLocation(World world, double x, double y, double z, double yaw, double pitch) {
-        return new SerializableLocation(new Location(world, x, y, z, toFloat(yaw), toFloat(pitch)));
+    public Location serializeLocation(World world, double x, double y, double z, double yaw, double pitch) {
+        return new Location(world, x, y, z, (float) yaw, (float) pitch);
     }
 
-    /**
-     * @deprecated Location itself implements ConfigurationSerializable on latest versions.
-     */
-    @Deprecated
     @Override
-    public SerializableLocation serializeLocation(Location loc) {
-        return new SerializableLocation(loc);
+    public Location serializeLocation(Location loc) {
+        return loc;
     }
-//Eventually, this has to be created either as Executor or Placeholder
-//    public BossBar makeBossBar(String title, String color, String style) {
-//        BarColor colorEnum = BarColor.valueOf(color.toUpperCase());
-//	    BarStyle styleEnum = BarStyle.valueOf(style.toUpperCase());
-//
-//        BossBar BarObj = null;
-//        try {
-//            BarObj = (BossBar) ReflectionUtil.invokeMethod(Bukkit.class, (Object) null, "createBossBar", title, colorEnum, styleEnum);
-//        } catch (NoSuchMethodException e) {
-//            return null;
-//        } catch (InvocationTargetException | IllegalAccessException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return BarObj;
-//    }
 }
