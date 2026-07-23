@@ -66,7 +66,7 @@ public class BukkitCommandHandler implements ICommandHandler {
             rawCommandMap.put(alias, command);
         }
 
-        commandMapHandler.synchronizeCommandMap();
+//        commandMapHandler.synchronizeCommandMap();    // needs manual synchronization after finishing registering
         return new BukkitCommand(command, overridden);
     }
 
